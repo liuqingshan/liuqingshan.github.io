@@ -1,1 +1,1 @@
-个人博客, [see](http://muzhi.in)
+个人博客
