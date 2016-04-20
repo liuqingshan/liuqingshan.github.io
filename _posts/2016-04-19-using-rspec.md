@@ -13,7 +13,7 @@ location: 西安
   end
 
   group :test do
-    gem "ffaker", "~> 1.4.3"
+    gem "ffaker", "~> 2.2.0"
     gem "capybara", "~> 2.4.3"
     gem "database_cleaner", "~> 1.3.0"
     gem "launchy", "~> 2.4.2"
