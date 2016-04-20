@@ -16,6 +16,10 @@ class User
   def self.match_name(name)
     where("name like ?", "#{name}%").order(:name)
   end
+
+  def to_s
+    name
+  end
 end
 ```
 
@@ -49,6 +53,7 @@ describe User do
   it "is invalid without a email"
   it "is invalid without a duplicate email address"
   it "returns a sorted array of results that match"
+  it "returns name when call to_s"
 end
 
 ```
@@ -97,6 +102,12 @@ describe User do
 
     expect(User.match_name("zhang")).to eq [zhangming, zhangsan]
     expect(User.match_name("zhang")).not_to include xiaoming
+  end
+
+  it "returns string when call to_s" do
+    zhangsan = create(:user, name: "zhangsan")
+
+    expect(zhangsan.to_s).to eq "zhangsan"
   end
 end
 
