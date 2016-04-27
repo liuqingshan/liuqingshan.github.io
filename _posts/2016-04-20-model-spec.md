@@ -95,19 +95,27 @@ describe User do
     expect(user.errors[:email]).to include("has already been taken")
   end
 
-  it "returns a sorted array of results that match" do
-    zhangsan = create(:user, name: "zhangsan")
-    zhangming = create(:user, name: "zhangming")
-    xiaoming = create(:user, name: "xiaoming")
-
-    expect(User.match_name("zhang")).to eq [zhangming, zhangsan]
-    expect(User.match_name("zhang")).not_to include xiaoming
-  end
-
   it "returns string when call to_s" do
     zhangsan = create(:user, name: "zhangsan")
-
     expect(zhangsan.to_s).to eq "zhangsan"
+  end
+
+  describe "filter user by name" do
+    before :each do
+      @zhangsan = create(:user, name: "zhangsan")
+      @zhangming = create(:user, name: "zhangming")
+      @xiaoming = create(:user, name: "xiaoming")
+    end
+
+    context "with matching name" do
+      it "returns a sorted array of results that match" do
+        expect(User.match_name("zhang")).to eq [@zhangming, @zhangsan]
+      end
+
+      it "omits results that do not match" do
+        expect(User.match_name("zhang")).not_to include @xiaoming
+      end
+    end
   end
 end
 
